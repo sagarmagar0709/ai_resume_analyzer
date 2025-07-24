@@ -1,87 +1,51 @@
-# Welcome to React Router!
 
-A modern, production-ready template for building full-stack React applications using React Router.
+<img width="1920" height="1080" alt="Cover" src="https://github.com/user-attachments/assets/7efcb419-15b1-42f0-9a2f-2e07c978760a" />
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+# 🧠 Resumind – AI-Powered Resume Analyzer
 
-## Features
+**Resumind** is a modern, AI-powered web app built with React 19, React Router v7, and Puter.js that helps users upload their resumes, get smart ATS-based evaluations, and receive tailored feedback—all in a clean, responsive, and reusable UI.
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+🔗 **Live Demo**: [https://resumind-livid.vercel.app/](https://resumind-livid.vercel.app/)
 
 ---
 
-Built with ❤️ using React Router.
+## ✨ Features
+
+- 🔐 **Browser-based Auth** — Seamless login/signup via Puter.js, no backend required.
+- 📄 **Upload & Store Resumes** — Users can upload and securely store their resumes.
+- 🤖 **AI Resume Matching** — Instantly score resumes against job listings using AI.
+- 💬 **Custom Feedback** — Receive ATS score breakdowns with detailed improvement suggestions.
+- 💡 **Modern UI/UX** — Clean layout, reusable components, and responsive design.
+- ⚡ **Fast & Serverless** — Built entirely on the frontend using Puter.js + Vite.
+
+---
+
+## ⚙️ Tech Stack
+
+| Tech             | Description |
+|------------------|-------------|
+| **React 19**       | UI library for building interactive UIs with components |
+| **React Router v7** | Powerful routing with loaders, actions, and SSR support |
+| **Puter.js**       | Serverless SDK with auth, storage, and AI built in |
+| **Tailwind CSS**   | Utility-first CSS framework for responsive design |
+| **shadcn/ui**      | Modern component library for clean UI |
+| **Zustand**        | Lightweight state management for React |
+| **Vite**           | Lightning-fast build tool and dev server |
+| **TypeScript**     | Static typing for scalable frontend development |
+
+---
+
+## 🧩 Project Structure
+
+```bash
+├── app/
+│   ├── components/      # Reusable components (ScoreCircle, Navbar, etc.)
+│   ├── routes/          # Page-level route components
+│   ├── lib/             # Utilities like puter.ts, pdf2img.ts
+│   ├── app.css          # Global styles
+├── public/              # Static assets (icons, images, etc.)
+├── constants/           # Shared constants
+├── types/               # Global TypeScript types
+├── react-router.config.ts
+├── vite.config.ts
+└── README.md
