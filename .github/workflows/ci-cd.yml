@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: sagarmagar070/react-app  # Replace with your Docker Hub username/repo
+      IMAGE_NAME: sagarmagar0709/react-app  # Replace with your Docker Hub username/repo
       DEPLOYMENT_FILE: k8s/deployment.yaml # Adjust if your path differs
 
     steps:
