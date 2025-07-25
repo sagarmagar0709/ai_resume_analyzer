@@ -16,6 +16,19 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: sagarmagar070/ai_resume_analyzer:__IMAGE_TAG__
+        image: sagarmagar0709/ai_resume_analyzer:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
