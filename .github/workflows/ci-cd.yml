@@ -35,7 +35,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: sagarmagar070/ai_resume_analyzer:${{ steps.vars.outputs.TAG }}
+        tags: sagarmagar0709/ai_resume_analyzer:${{ steps.vars.outputs.TAG }}
 
     - name: Replace image tag in deployment.yml
       run: |
@@ -54,4 +54,4 @@ jobs:
     - name: Deploy to EKS
       run: kubectl apply -f k8s/deployment-updated.yml
 
-#
+#123
