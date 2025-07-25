@@ -1,60 +1,35 @@
-name: CI-CD Java K8s App
+name: React App CI/CD
 
 on:
   push:
     branches:
-      - master
+      - main
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: ai_resume_analyzer
+  CLUSTER_NAME: your-eks-cluster-name
+  DEPLOYMENT_NAME: react-frontend
+  CONTAINER_NAME: react-frontend
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      IMAGE_NAME: sagarmagar0709/ai_resume_analyzer
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-    - name: Build project
-      run: |
-        ./mvnw clean package -DskipTests
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    - name: Set up Docker
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-
-    - name: Extract version (Git SHA)
-      id: vars
-      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-    - name: Build & Push Docker Image
-      run: |
-        docker build -t $IMAGE_NAME:${{ steps.vars.outputs.sha_short }} .
-        docker push $IMAGE_NAME:${{ steps.vars.outputs.sha_short }}
-
-    - name: Update deployment YAML with new image tag
-      run: |
-        sed -i "s|image: ${IMAGE_NAME}:.*|image: ${IMAGE_NAME}:${{ steps.vars.outputs.sha_short }}|" deployment.yaml
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        region: us-east-1
-
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v3
-      with:
-        version: 'latest'
-
-    - name: Apply updated deployment
-      run: |
-        kubectl apply -f deployment.yaml
-        kubectl rollout status deployment/myapp
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ env.ECR_REPOSITORY }}
