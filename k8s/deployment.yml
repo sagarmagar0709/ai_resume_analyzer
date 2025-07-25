@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: sagarmagar070/myapp:__IMAGE_TAG__
+        image: sagarmagar070/ai_resume_analyzer:__IMAGE_TAG__
         ports:
         - containerPort: 8080
