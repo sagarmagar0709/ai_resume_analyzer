@@ -35,7 +35,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: sagarmagar070/myapp:${{ steps.vars.outputs.TAG }}
+        tags: sagarmagar070/ai_resume_analyzer:${{ steps.vars.outputs.TAG }}
 
     - name: Replace image tag in deployment.yml
       run: |
