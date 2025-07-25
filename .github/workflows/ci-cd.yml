@@ -41,5 +41,5 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image deployment/myapp myapp=sagarmagar0709/ai_resume_analyzer:latest
-          kubectl rollout status deployment/myapp
+          kubectl set image deployment/myapp myapp=sagarmagar0709/ai_resume_analyzer:latest --namespace=default
+          kubectl rollout status deployment/myapp --namespace=default
