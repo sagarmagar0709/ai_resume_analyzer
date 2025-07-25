@@ -1,24 +1,33 @@
-FROM node:20-alpine AS development-dependencies-env
-COPY . /app
+# Stage 1: Build the React application
+FROM node:20-alpine as build
+
+# Set working directory
 WORKDIR /app
 
-RUN npm ci
+# Copy package.json and install dependencies
+COPY package*.json ./
+RUN npm install
 
-FROM node:20-alpine AS production-dependencies-env
-COPY ./package.json package-lock.json /app/
-WORKDIR /app
-RUN npm ci --omit=dev
+# Copy the rest of the application code
+COPY . .
 
-FROM node:20-alpine AS build-env
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
-WORKDIR /app
+# Build the React app
 RUN npm run build
 
+# Stage 2: Serve using nginx
+FROM nginx:stable-alpine
 
-FROM node:20-alpine
-COPY ./package.json package-lock.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
-WORKDIR /app
-CMD ["npm", "run", "start"]
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy built files from the previous stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy custom nginx config for React Router
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the port
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
