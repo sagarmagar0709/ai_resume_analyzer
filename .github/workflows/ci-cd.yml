@@ -3,7 +3,7 @@ name: CI/CD Workflow for ReactJS App to EKS
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
