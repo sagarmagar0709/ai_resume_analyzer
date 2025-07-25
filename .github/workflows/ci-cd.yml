@@ -3,7 +3,7 @@ name: CI-CD Java K8s App
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
