@@ -41,7 +41,7 @@ jobs:
 
       - name: Update deployment.yaml with new image tag
         run: |
-          sed -i "s|image: .*|image: $IMAGE_NAME:$SHA_TAG|g" k8s/deployment.yaml
+          sed -i "s|image: .*|image: $IMAGE_NAME:$SHA_TAG|g" k8s/deployment.yml
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -60,5 +60,5 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/deployment.yml
+          kubectl apply -f k8s/service.yml
